@@ -14,17 +14,19 @@ public class InnVO {
 	private String innInfo;
 	private String innAvailability;
 	private String memberId; //MemberVO타입의 변수가 들어와야 하는데 처리방법 몰라서 임시로 
+	private AmenityVO amenityVO;
 //	private List<AvailableDateVO> availableDateVO;
-//	private AmenityVO amenityVO;
 //	private List<InnPicCompVO> innPicCompVO;
 //	private List<CommentVO> commentVO;
 	public InnVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public InnVO(int innNo, String innName, String innCity, String innArea,
-			String innAddress, String innType, String acceptableNo, int innPrice,
-			String innInfo, String innAvailability, String memberId) {
+			String innAddress, String innType, String acceptableNo,
+			int innPrice, String innInfo, String innAvailability,
+			String memberId, AmenityVO amenityVO) {
 		super();
 		this.innNo = innNo;
 		this.innName = innName;
@@ -37,7 +39,9 @@ public class InnVO {
 		this.innInfo = innInfo;
 		this.innAvailability = innAvailability;
 		this.memberId = memberId;
+		this.amenityVO = amenityVO;
 	}
+
 	public InnVO(String innName, String innCity, String innArea,
 			String innAddress, String innType, String acceptableNo,
 			int innPrice, String innInfo, String innAvailability,
@@ -55,6 +59,14 @@ public class InnVO {
 		this.memberId = memberId;
 	}
 	
+	public AmenityVO getAmenityVO() {
+		return amenityVO;
+	}
+
+	public void setAmenityVO(AmenityVO amenityVO) {
+		this.amenityVO = amenityVO;
+	}
+
 	public InnVO(String innCity, String acceptableNo) {
 		super();
 		this.innCity = innCity;
@@ -126,6 +138,7 @@ public class InnVO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
 	@Override
 	public String toString() {
 		return "InnVO [innNo=" + innNo + ", innName=" + innName + ", innCity="
@@ -133,8 +146,10 @@ public class InnVO {
 				+ innAddress + ", innType=" + innType + ", acceptableNo="
 				+ acceptableNo + ", innPrice=" + innPrice + ", innInfo="
 				+ innInfo + ", innAvailability=" + innAvailability
-				+ ", memberId=" + memberId + "]";
+				+ ", memberId=" + memberId + ", amenityVO=" + amenityVO + "]";
 	}
+
+	
 	
 	
 }
