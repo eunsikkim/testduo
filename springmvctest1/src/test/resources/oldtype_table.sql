@@ -89,7 +89,19 @@ insert into INN
 (inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
 inn_price, inn_info,inn_availability,member_id) 
 values(inn_sequence.nextval,'판교역','성남','판교','판교동','집 전체',10000,0,'정말 넓고 쾌적해요','Y','oldtype')
-
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'강남오피스텔','서초','강남','서초구','개인실',2,5000,'유흥가 가까움','Y','oldtype');
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'용인촌','용인','역북','역북동 주공아파트','집 전체',6,10000,'동네가 매우 한적합니다.','Y','oldtype');
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'영통메르디앙','수원','영통','영통메르디앙APT','집 전체',5,30000,'경희대학교 인접해있습니다.','Y','oldtype');
+select*from inn;
 
 select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_info,inn_availability, member_id 
 from inn where inn_city='성남' and inn_acceptable_no=10000 
@@ -105,8 +117,26 @@ constraint fk_inn6 foreign key(amenity_no) references inn(inn_no) on DELETE CASC
 )
 
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
-	('Y','Y','Y','Y','Y',7)
+	('Y','Y','Y','Y','Y',1);
+insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
+('Y','N','Y','N','Y',2);
+insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
+('Y','N','N','N','Y',3);
+insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
+('Y','N','N','N','Y',21);
+	
+--amenity에 따른 검색 쿼리문1(InnVO + AmenityVO 같이 출력)
+select * from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq, a.amenity_no
+from inn i, amenity a where i.inn_no=a.amenity_no)
+where amenity_wifi='Y' and amenity_bed='N' and amenity_tv='N' and amenity_kitchen='N' and amenity_bbq='Y';
 
+--amenity에 따른 검색 쿼리문2(InnVO 컬럼만 출력)
+select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq, a.amenity_no
+from inn i, amenity a where i.inn_no=a.amenity_no)
+where amenity_wifi='Y' and amenity_bed='N' and amenity_tv='N' and amenity_kitchen='N' and amenity_bbq='Y';
 
 -----------------댓글테이블(member_id / inn_no ref) ----------------------
 create table comments(

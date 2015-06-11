@@ -21,6 +21,16 @@ public class AmenityVO {
 		this.amenityKitchen = amenityKitchen;
 		this.amenityBBQ = amenityBBQ;
 	}
+	
+	public AmenityVO(String amenityWiFi, String amenityBed, String amenityTV,
+			String amenityKitchen, String amenityBBQ) {
+		super();
+		this.amenityWiFi = amenityWiFi;
+		this.amenityBed = amenityBed;
+		this.amenityTV = amenityTV;
+		this.amenityKitchen = amenityKitchen;
+		this.amenityBBQ = amenityBBQ;
+	}
 	public int getInnNo() {
 		return innNo;
 	}
