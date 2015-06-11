@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <script>
 	$(function() {
 		$("#checkin, #checkout").datepicker({
@@ -22,6 +24,7 @@
 			<option>4</option>
 			<option>5</option>
 		</select>
-		<button type="submit" class="btn btn-default">검색</button>
+		<button type="submit" class="btn btn-default">검색</button><br>
+		<a href="innSearch.do">임시숙소검색페이지</a>
 	</form>
 </div>

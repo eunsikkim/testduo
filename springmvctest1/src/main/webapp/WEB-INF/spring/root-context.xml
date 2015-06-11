@@ -6,7 +6,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 컨트롤러 부분을 제외한 어노테이션 명시 클래스를 대상으로 빈을 생성 -->
-	<context:component-scan base-package="org.kosta.springmvctest1.model.dao">
+	<context:component-scan base-package="org.kosta.dashduowork.model">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>

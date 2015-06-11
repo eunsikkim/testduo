@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <img src="smalllogo.gif" style="float: left;" height="45" width="45"></a>
 
 <div id='cssmenu' style="margin-right:40px; float: right ">
