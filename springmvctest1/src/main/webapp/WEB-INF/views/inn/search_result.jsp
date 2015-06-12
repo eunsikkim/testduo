@@ -7,7 +7,7 @@
 </c:when>
 <c:otherwise>
 <c:forEach var="list" items="${requestScope.list}">
-${list.innName }  / ${list.innCity } / ${list.innArea } / ${list.innAddress } / <%--  ${list.innAcceptableNo } --%> / ${list.innPrice } / ${list.innInfo }
+${list.innName }  / ${list.innCity } / ${list.innArea } / ${list.innAddress } / <%--  ${list.innAcceptableNo } --%> / ${list.innPrice } / ${list.innInfo }<br>
 </c:forEach>
 </c:otherwise>
 </c:choose>
