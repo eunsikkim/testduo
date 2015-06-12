@@ -9,6 +9,7 @@ import org.kosta.dashduowork.model.service.InnService;
 import org.kosta.dashduowork.model.vo.AmenityVO;
 import org.kosta.dashduowork.model.vo.InnVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,13 +21,12 @@ public class InnController {
 	
 	
 	@RequestMapping(value ="selectInnByCheckedAmenity.do")
-	public ModelAndView selectInnByCheckedAmenity(AmenityVO vo, HttpServletRequest request,ModelAndView mv) {
-		System.out.println(vo);
+	public String selectInnByCheckedAmenity(AmenityVO vo, Model model) {
+//		System.out.println(vo);
 		List<InnVO> list =innService.findInnByCheckedAmenity(vo);
-		System.out.println(list);
-		mv.addObject("list", list);
-		mv.setViewName("inn_search_result");
-		return mv;
+//		System.out.println(list);
+		model.addAttribute("list", list);
+		return "inn_search_result";
 	}
 }
 
