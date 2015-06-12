@@ -17,9 +17,6 @@ public class Test {
 		InnDAO idao=(InnDAO)ctx.getBean("innDAOImpl");
 //		InnVO ivo=new InnVO("성남","10000");
 		InnVO vo=null;
-		AmenityVO avo=new AmenityVO("Y","N","N","N","Y");
-		List<InnVO> list=idao.selectInnByCheckedAmenity(avo);
-		System.out.println(list);
 //		MemberVO mvo=new MemberVO("oldtype","oldtype");
 //		System.out.println(mvo);
 //		MemberVO vo=mdao.login(mvo);

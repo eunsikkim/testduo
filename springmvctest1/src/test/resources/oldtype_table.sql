@@ -88,7 +88,7 @@ constraint fk_member_id foreign key(member_id) references member(member_id) on D
 insert into INN
 (inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
 inn_price, inn_info,inn_availability,member_id) 
-values(inn_sequence.nextval,'판교역','성남','판교','판교동','집 전체',10000,0,'정말 넓고 쾌적해요','Y','oldtype')
+values(inn_sequence.nextval,'판교역','성남','판교','판교동','집 전체',10000,0,'정말 넓고 쾌적해요','Y','oldtype');
 insert into INN
 (inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
 inn_price, inn_info,inn_availability,member_id) 
@@ -117,14 +117,14 @@ constraint fk_inn6 foreign key(amenity_no) references inn(inn_no) on DELETE CASC
 )
 
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
-	('Y','Y','Y','Y','Y',1);
+('Y','Y','Y','Y','Y',1);
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
 ('Y','N','Y','N','Y',2);
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
 ('Y','N','N','N','Y',3);
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, amenity_no) values
-('Y','N','N','N','Y',21);
-	
+('Y','N','N','N','Y',4);
+
 --amenity에 따른 검색 쿼리문1(InnVO + AmenityVO 같이 출력)
 select * from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
 i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq, a.amenity_no

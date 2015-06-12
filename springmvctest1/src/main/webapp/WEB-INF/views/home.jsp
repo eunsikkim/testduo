@@ -25,6 +25,6 @@
 			<option>5</option>
 		</select>
 		<button type="submit" class="btn btn-default">검색</button><br>
-		<a href="innSearch.do">임시숙소검색페이지</a>
+		<a href="inn_search_form.do">임시숙소검색페이지</a>
 	</form>
 </div>
