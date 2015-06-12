@@ -10,12 +10,12 @@
 <img id="img1" src="${initParam.root}img/house.jpg" style="position: relative; top: 80px; left: 330px;">
 
 <div style="position: relative; top: 150px; left: 230px; opacity: 0.7">
-	<form class="navbar-form navbar-left" role="search">
+	<form action="searchByCityDateNo.do" class="navbar-form navbar-left" role="search">
 		<input type="text" class="form-control" name="innCity" placeholder="State"> <input
 			type="text" class="form-control" name="startDate" id="checkin" size="15"
-			onfocus="this.value=''" value="체크인"> <input type="text"
+			onfocus="this.value=''" placeholder="Checkin"> <input type="text"
 			class="form-control" name="endDate" size="15" id="checkout"
-			onfocus="this.value=''" value="체크아웃"> <select
+			onfocus="this.value=''" placeholder="Checkout"> <select
 			class="form-control" name="acceptableNo" id="select">
 			<option value="1">게스트 1명</option>
 			<option value="2">게스트 2명</option>
