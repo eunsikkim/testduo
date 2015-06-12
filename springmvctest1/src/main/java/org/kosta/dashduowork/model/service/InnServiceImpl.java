@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.kosta.dashduowork.model.dao.InnDAO;
 import org.kosta.dashduowork.model.vo.AmenityVO;
 import org.kosta.dashduowork.model.vo.InnVO;
+import org.kosta.dashduowork.model.vo.SearchVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,20 @@ public class InnServiceImpl implements InnService {
 	public List<InnVO> findInnByCheckedAmenity(AmenityVO vo) {
 		System.out.println("Service의 findInnByCheckedAmenity");
 		List<InnVO> list =  innDAO.selectInnByCheckedAmenity(vo);
+		System.out.println(list);
+		return list;
+	}
+	
+	//plus+++++++++++++++++++++++++++++++++++++++++++
+	public List<InnVO> selectInnByCityAndDate(SearchVO vo) {
+		System.out.println("Service의 selectInnByCityAndDate");
+		List<InnVO> list =  innDAO.selectInnByCityAndDate(vo);
+		System.out.println(list);
+		return list;
+	}
+	public List<InnVO> selectInnByCityAndDateAndAcceptableNo(SearchVO vo){
+		System.out.println("Service의 selectInnByCityAndDateAndAcceptableNo");
+		List<InnVO> list =  innDAO.selectInnByCityAndDateAndAcceptableNo(vo);
 		System.out.println(list);
 		return list;
 	}

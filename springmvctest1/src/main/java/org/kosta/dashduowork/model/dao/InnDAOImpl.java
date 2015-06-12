@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.dashduowork.model.vo.AmenityVO;
 import org.kosta.dashduowork.model.vo.InnVO;
+import org.kosta.dashduowork.model.vo.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,11 @@ public class InnDAOImpl implements InnDAO {
 	public List<InnVO> selectInnByCheckedAmenity(AmenityVO vo) {
 		return sqlSessionTemplate.selectList("inn.selectInnByCheckedAmenity", vo);
 	}	
-	
-	
+	//plus+++++++++++++++++++++++++++++++++++++++++++
+	public List<InnVO> selectInnByCityAndDate(SearchVO vo){
+		return sqlSessionTemplate.selectList("inn.selectInnByCityAndDate", vo);
+	}
+	public List<InnVO> selectInnByCityAndDateAndAcceptableNo(SearchVO vo){
+		return sqlSessionTemplate.selectList("inn.selectInnByCityAndDateAndAcceptableNo", vo);
+	}
 }

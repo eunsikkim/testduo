@@ -16,6 +16,11 @@
 	
 -------------------------------------------------------------------------------------------------------------------
 	
+-- 6/10 수정
+	-- 1. 프로필 사진 테이블 변경
+		-- 시퀀스 삭제, pk는 멤버의 아이디를 참조, 파일 이름만 컬럼 외에는 모두 삭제
+
+-------------------------------------------------------------------------------------------------------------------
 drop table member;
 drop table inn;
 drop table comments;
@@ -82,12 +87,12 @@ inn_price number not null,
 inn_info clob not null,
 inn_availability VARCHAR2(1) CHECK (inn_availability IN ('Y','N')),
 member_id varchar2(50) not null,
-constraint fk_member_id foreign key(inn_id) references member(member_id) on DELETE CASCADE
+constraint fk_member_id foreign key(member_id) references member(member_id) on DELETE CASCADE
 )
 
 insert into INN
 (inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
-inn_price, inn_info,inn_availability,inn_id) 
+inn_price, inn_info,inn_availability,member_id) 
 values(inn_sequence.nextval,'판교역','성남','판교','판교동','집 전체',10000,0,'정말 넓고 쾌적해요','Y','oldtype')
 
 -----------------제공시설 테이블(inn_no ref) 오류-----------------------
@@ -141,21 +146,15 @@ constraint fk_inn2 foreign key(inn_no) references inn(inn_no) on DELETE CASCADE
 
 -----------------프로필테이블(member_id ref)-----------------------
 create table profile_pic(
-profile_pic number primary key,
-member_id varchar2(50) not null,
-profile_pic_filepath varchar2(50),
-profile_pic_ogname varchar2(50),
-profile_pic_currname varchar2(50),
+member_id varchar2(50) primary key,
+file_path varchar2(200) not null,
 constraint fk_member3 foreign key(member_id) references member(member_id) on DELETE CASCADE 
 )
 
 -----------------숙소 사진 테이블(inn_no ref)-----------------------
 create table inn_pic(
-inn_pic number primary key,
-inn_no number not null,
-inn_pic_filepath varchar2(50),
-inn_pic_ogname varchar2(50),
-inn_pic_currname varchar2(50),
+inn_no number primary key,
+file_path varchar2(50),
 constraint fk_inn4 foreign key(inn_no) references inn(inn_no) on DELETE CASCADE 
 )
 

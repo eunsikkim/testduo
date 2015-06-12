@@ -101,6 +101,18 @@ insert into INN
 (inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
 inn_price, inn_info,inn_availability,member_id) 
 values(inn_sequence.nextval,'영통메르디앙','수원','영통','영통메르디앙APT','집 전체',5,30000,'경희대학교 인접해있습니다.','Y','oldtype');
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'영통메르디앙2','수원','영통','영통메르디앙APT2','집 전체',5,25000,'경희대학교 인접해있습니다.','Y','oldtype');
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'영통메르디앙3','수원','영통','영통메르디앙APT3','집 전체',5,27000,'경희대학교 인접해있습니다.','Y','oldtype');
+insert into INN
+(inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
+inn_price, inn_info,inn_availability,member_id) 
+values(inn_sequence.nextval,'영통메르디앙4','수원','영통','영통메르디앙APT4','집 전체',3,27000,'경희대학교 인접해있습니다.','Y','oldtype');
 select*from inn;
 
 select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_info,inn_availability, member_id 
@@ -143,7 +155,7 @@ create table comments(
 member_id varchar2(50) not null,
 inn_no number not null,
 comments_no number primary key,
-comments_writer varchar2(50) not null
+comments_writer varchar2(50) not null,
 comments_date date not null,
 comments_content clob not null,
 comments_point number not null,
@@ -200,4 +212,33 @@ availabledate_st date not null,
 availabledate_end date not null,
 constraint fk_inn5 foreign key(inn_no) references inn(inn_no) on DELETE CASCADE 
 )
-
+select * from availabledate;
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 1, '2015-05-18', '2015-05-25');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 1, '2015-05-27', '2015-05-31');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 2, '2015-05-20', '2015-05-24');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 3, '2015-05-13', '2015-05-22');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 3, '2015-06-02', '2015-06-10');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 5, '2015-05-27', '2015-05-31');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 5, '2015-05-27', '2015-05-31');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 6, '2015-05-27', '2015-05-31');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 6, '2015-05-27', '2015-05-31');
+insert into availabledate(availabledate_no, inn_no, availabledate_st, availabledate_end) values(availabledate_no_sequence.nextval, 7, '2015-05-27', '2015-05-31');
+--날짜로만 검색--
+select distinct inn_no, inn_name, inn_city, inn_type, inn_acceptable_no, inn_price, member_id
+from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price, i.inn_info,i.inn_availability,i.member_id from availabledate a, inn i 
+where i.inn_no=a.inn_no and a.availabledate_st>= '2015-05-15' and a.availabledate_end <= '2015-06-05');
+--날짜&지역으로 검색 가능한듯--
+select distinct inn_no, inn_name, inn_city, inn_area, inn_type, inn_acceptable_no, inn_price, member_id
+from (select * from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.availabledate_st, a.availabledate_end from availabledate a, inn i 
+where i.inn_no=a.inn_no)
+where availabledate_st>= '2015-05-15' and availabledate_end <= '2015-06-05')
+where inn_city='수원';
+--날짜&지역&인원 검색--
+select distinct inn_no, inn_name, inn_city, inn_area, inn_type, inn_acceptable_no, inn_price, member_id
+from (select * from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.availabledate_st, a.availabledate_end from availabledate a, inn i 
+where i.inn_no=a.inn_no)
+where availabledate_st>= '2015-05-15' and availabledate_end <= '2015-06-05')
+where inn_city='수원' and inn_acceptable_no='5';

@@ -28,5 +28,6 @@ public class InnController {
 		model.addAttribute("list", list);
 		return "inn_search_result";
 	}
+	
 }
 
