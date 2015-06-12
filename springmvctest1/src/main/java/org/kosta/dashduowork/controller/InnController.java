@@ -27,14 +27,17 @@ public class InnController {
 		return "inn_search_result";
 	}
 	@RequestMapping(value="searchByCityDateNo.do")
-	public String searchByCityDateNo(SearchVO vo){
+	public String searchByCityDateNo(SearchVO vo, Model model){
 		System.out.println(vo);
-		if(vo.getStartDate()==null){
-			System.out.println("null로 인식함");
-		}else{
-			System.out.println("null로 인식nono");
+		List<InnVO> list=null;
+		if(vo.getStartDate()==""){
+			//날짜 안들어간경우		
+			list=innService.findInnByCityAndAcceptableNo(vo);
+		}else{//날짜 들어간경우
+			list=innService.findInnByCityAndDateAndAcceptableNo(vo);
 		}
-		return "";
+		model.addAttribute("list", list);
+		return "inn_search_result";
 	}
 	
 }

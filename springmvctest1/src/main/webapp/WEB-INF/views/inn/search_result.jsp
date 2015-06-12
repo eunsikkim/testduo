@@ -6,8 +6,8 @@
 검색실패
 </c:when>
 <c:otherwise>
-<c:forEach var="aa" items="${requestScope.list}">
-${aa}
+<c:forEach var="list" items="${requestScope.list}">
+${list.innName }  / ${list.innCity } / ${list.innArea } / ${list.innAddress } / <%--  ${list.innAcceptableNo } --%> / ${list.innPrice } / ${list.innInfo }
 </c:forEach>
 </c:otherwise>
 </c:choose>

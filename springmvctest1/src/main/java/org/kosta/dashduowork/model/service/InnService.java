@@ -8,6 +8,6 @@ import org.kosta.dashduowork.model.vo.SearchVO;
 
 public interface InnService {
 	public List<InnVO> findInnByCheckedAmenity(AmenityVO vo);
-	public List<InnVO> selectInnByCityAndDate(SearchVO vo);
-	public List<InnVO> selectInnByCityAndDateAndAcceptableNo(SearchVO vo);
+	public List<InnVO> findInnByCityAndAcceptableNo(SearchVO vo);
+	public List<InnVO> findInnByCityAndDateAndAcceptableNo(SearchVO vo);
 }

@@ -16,8 +16,7 @@ public class Test {
 		MemberDAO mdao=(MemberDAO)ctx.getBean("memberDAOImpl");
 		InnDAO idao=(InnDAO)ctx.getBean("innDAOImpl");
 		SearchVO svo=new SearchVO("수원","2015-05-15","2015-06-05","5");
-		List<InnVO> list=idao.selectInnByCityAndDate(svo);
-		System.out.println(list);
+
 	}
 
 }

@@ -24,13 +24,13 @@ public class InnServiceImpl implements InnService {
 	}
 	
 	//plus+++++++++++++++++++++++++++++++++++++++++++
-	public List<InnVO> selectInnByCityAndDate(SearchVO vo) {
+	public List<InnVO> findInnByCityAndAcceptableNo(SearchVO vo) {
 		System.out.println("Service의 selectInnByCityAndDate");
-		List<InnVO> list =  innDAO.selectInnByCityAndDate(vo);
+		List<InnVO> list =  innDAO.selectInnByCityAndAcceptableNo(vo);
 		System.out.println(list);
 		return list;
 	}
-	public List<InnVO> selectInnByCityAndDateAndAcceptableNo(SearchVO vo){
+	public List<InnVO> findInnByCityAndDateAndAcceptableNo(SearchVO vo){
 		System.out.println("Service의 selectInnByCityAndDateAndAcceptableNo");
 		List<InnVO> list =  innDAO.selectInnByCityAndDateAndAcceptableNo(vo);
 		System.out.println(list);
