@@ -11,6 +11,8 @@ import org.kosta.dashduowork.model.vo.SearchVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class InnController {
@@ -18,17 +20,25 @@ public class InnController {
 	private InnService innService;
 	
 	
-	@RequestMapping(value ="selectInnByCheckedAmenity.do")
+	/*@RequestMapping(value ="selectInnByCheckedAmenity.do")
 	public String selectInnByCheckedAmenity(AmenityVO vo, Model model) {
 //		System.out.println(vo);
 		List<InnVO> list =innService.findInnByCheckedAmenity(vo);
 //		System.out.println(list);
 		model.addAttribute("list", list);
 		return "inn_search_result";
+	}*/
+	@RequestMapping(value ="selectInnByCheckedAmenity.do", method=RequestMethod.POST )
+	@ResponseBody
+	public List<InnVO> selectInnByCheckedAmenity(AmenityVO vo, Model model) {
+		System.out.println(vo+" 는 내가 전달한 값");
+		List<InnVO> list =innService.findInnByCheckedAmenity(vo);
+		//model.addAttribute("list", list);
+		return list;
 	}
 	@RequestMapping(value="searchByCityDateNo.do")
 	public String searchByCityDateNo(SearchVO vo, Model model){
-		System.out.println(vo);
+		System.out.println("searchByCityDateNo.do 컨트롤러 : "+vo);
 		List<InnVO> list=null;
 		if(vo.getStartDate()==""){
 			//날짜 안들어간경우		
