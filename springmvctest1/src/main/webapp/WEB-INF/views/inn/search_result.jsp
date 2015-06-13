@@ -68,7 +68,11 @@
 					type="checkbox" name="amenityBed" value="Y">Bed <input
 					type="checkbox" name="amenityTV" value="Y">TV <input
 					type="checkbox" name="amenityKitchen" value="Y">주방 <input
-					type="checkbox" name="amenityBBQ" value="Y">바베큐
+					type="checkbox" name="amenityBBQ" value="Y">바베큐
+					<input type="hidden" name="firstSearchCity" value="${requestScope.searchVO.innCity }">
+					<input type="hidden" name="firstSearchStartDate" value="${requestScope.searchVO.startDate }">
+					<input type="hidden" name="firstSearchEndDate" value="${requestScope.searchVO.endDate }">
+					<input type="hidden" name="firstSearchPeopleNo" value="${requestScope.searchVO.acceptableNo }">
 			</form>
 	</div>
 </div>
@@ -96,7 +100,17 @@
 					<tbody>
 					<c:choose>
 					<c:when test="${requestScope.list.size()==0}" >
-					<tr align="center"><td colspan="8">검색결과가 존재하지 않습니다.</td></tr>
+					<!-- <tr align="center"><td colspan="8">검색결과가 존재하지 않습니다.</td></tr> -->
+							<tr>
+								<td><div id="showInnNo"></div></td>
+								<td><div id="showInnName"></div></td>
+								<td><div id="showInnCity"></div></td>
+								<td><div id="showInnArea"></div></td>
+								<td><div id="showInnInfo"></div></td>
+								<td><div id="showInnType"></div></td>
+								<td><div id="showInnAcceptable"></div></td>
+								<td><div id="showInnPrice"></div></td>
+							</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="list" items="${requestScope.list}">
@@ -112,7 +126,7 @@
 							</tr>
 						</c:forEach>
 					</c:otherwise>
-				</c:choose>
+					</c:choose>
 					</tbody>
 				</table>
 			</div>

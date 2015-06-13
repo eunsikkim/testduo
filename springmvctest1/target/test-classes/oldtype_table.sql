@@ -241,4 +241,31 @@ from (select * from (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_
 i.inn_price, i.inn_info,i.inn_availability,i.member_id, a.availabledate_st, a.availabledate_end from availabledate a, inn i 
 where i.inn_no=a.inn_no)
 where availabledate_st>= '2015-05-15' and availabledate_end <= '2015-06-05')
-where inn_city='수원' and inn_acceptable_no='5';
+where inn_city='수원' and inn_acceptable_no='5'
+
+
+
+
+
+
+
+
+
+
+
+--날짜/지역/인원검색 +++ 필터검색 +++
+select *
+from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
+from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledate_end, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq
+from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.amenity_no and ad.inn_no=a.amenity_no)
+where availabledate_st>= '2015-05-12' and availabledate_end <= '2015-06-20' and inn_city='용인' and inn_acceptable_no='3')
+where amenity_wifi='Y' and amenity_bed='Y' and amenity_tv='N' and amenity_kitchen='N' and amenity_bbq='Y';
+--지역/인원검색 +++ 필터검색 +++
+select *
+from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
+from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledate_end, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq
+from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.amenity_no and ad.inn_no=a.amenity_no)
+where inn_city='용인' and inn_acceptable_no='3')
+where amenity_wifi='Y' and amenity_bed='Y' and amenity_tv='N' and amenity_kitchen='Y' and amenity_bbq='Y';
