@@ -35,20 +35,25 @@ public class InnController {
 	@RequestMapping(value ="selectInnByCheckedAmenity.do", method=RequestMethod.POST )
 	@ResponseBody
 	public List<InnVO> selectInnByCheckedAmenity(FilterVO vo, Model model) {
-		/*String searchCity = request.getParameter("firstSearchCity");
-		String searchStartDate = request.getParameter("firstSearchStartDate");
-		String searchEndDate = request.getParameter("firstSearchEndDate");
-		String searchPeopleNo = request.getParameter("firstSearchPeopleNo");
-		System.out.println("검색폼에서 1차 searchVO 넘어오는지 확인 : "+searchCity+" "+searchStartDate+" "+searchEndDate+" "+searchPeopleNo);*/
-		System.out.println("FilterVO내용확인 : "+vo);
-		System.out.println(vo+" 는 내가 전달한 값");
-//		if(searchStartDate==""){//날짜 없는경우
-//			//서브쿼리 이용해서 도시+인원검색 후 결과를 filter처리 parameterType으로 새로운 VO를 만들거나 기존 VO에 변수 추가해야할듯
-//		}else{//날짜 들어간경우
-//			//서브쿼리 이용해서 도시+날짜+인원검색 후 결과를 filter처리
-//		}
-		AmenityVO avo=new AmenityVO();
-		List<InnVO> list =innService.findInnByCheckedAmenity(avo);
+		System.out.println("컨트롤러에서 FilterVO내용확인 : "+vo); //확인완료
+		List<InnVO> list=null;
+		if(vo.getAmenityBBQ().equals("N")&vo.getAmenityBed().equals("N")&vo.getAmenityKitchen().equals("N")&vo.getAmenityTV().equals("N")&vo.getAmenityWiFi().equals("N")){
+			System.out.println("체크값 없어서 컨트롤러에서 다른곳으로 빠짐.");
+			SearchVO svo=new SearchVO();
+			svo.setAcceptableNo(vo.getFirstSearchPeopleNo());
+			svo.setEndDate(vo.getFirstSearchEndDate());
+			svo.setInnCity(vo.getFirstSearchStartDate());
+			svo.setStartDate(vo.getFirstSearchStartDate());
+			searchByCityDateNo(svo, model);
+		}else{
+			if(vo.getFirstSearchStartDate()==""){//날짜 없는경우
+				//서브쿼리 이용해서 도시+인원검색 후 결과를 filter처리 parameterType으로 새로운 VO를 만들거나 기존 VO에 변수 추가해야할듯
+				list=innService.findInnByCityAndAcceptableNoWithFilter(vo);
+			}else{//날짜 들어간경우
+				//서브쿼리 이용해서 도시+날짜+인원검색 후 결과를 filter처리
+				list=innService.findInnByCityAndDateAndAcceptableNoWithFilter(vo);
+			}
+		}
 		//model.addAttribute("list", list);
 		return list;
 	}
