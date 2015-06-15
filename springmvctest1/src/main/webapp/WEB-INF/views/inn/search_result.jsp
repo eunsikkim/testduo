@@ -8,7 +8,7 @@
 			dateFormat : 'yy-mm-dd'
 		});
 		$("#filterForm").change(function() {
-			//$("resultViewSearch").html("");
+			$("#resultViewSearch").html("");
 			//alert();
 			$.ajax({
 				type : "Post",
@@ -27,7 +27,7 @@
 						tableInfo+="<tr><td colspan='8'>검색결과가 존재하지 않습니다.</td></tr>"
 					}
 					tableInfo+="</tbody></table>";
-					$("resultViewSearch").html(tableInfo);
+					$("#resultViewSearch").html(tableInfo);
 				}
 			});//ajax 			 	 			
 		}); //change
