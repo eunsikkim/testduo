@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.dashduowork.model.service.InnService;
-import org.kosta.dashduowork.model.vo.AmenityVO;
 import org.kosta.dashduowork.model.vo.FilterVO;
 import org.kosta.dashduowork.model.vo.InnVO;
 import org.kosta.dashduowork.model.vo.SearchVO;
@@ -42,9 +41,15 @@ public class InnController {
 			SearchVO svo=new SearchVO();
 			svo.setAcceptableNo(vo.getFirstSearchPeopleNo());
 			svo.setEndDate(vo.getFirstSearchEndDate());
-			svo.setInnCity(vo.getFirstSearchStartDate());
+			svo.setInnCity(vo.getFirstSearchCity());
 			svo.setStartDate(vo.getFirstSearchStartDate());
-			searchByCityDateNo(svo, model);
+			if(svo.getStartDate()==""){
+				//날짜 안들어간경우		
+				list=innService.findInnByCityAndAcceptableNo(svo);
+			}else{//날짜 들어간경우
+				list=innService.findInnByCityAndDateAndAcceptableNo(svo);
+			}
+			model.addAttribute("searchVO", svo);
 		}else{
 			if(vo.getFirstSearchStartDate()==""){//날짜 없는경우
 				//서브쿼리 이용해서 도시+인원검색 후 결과를 filter처리 parameterType으로 새로운 VO를 만들거나 기존 VO에 변수 추가해야할듯
@@ -55,6 +60,7 @@ public class InnController {
 			}
 		}
 		//model.addAttribute("list", list);
+		System.out.println("결과 list 확인 : "+list);
 		return list;
 	}
 	

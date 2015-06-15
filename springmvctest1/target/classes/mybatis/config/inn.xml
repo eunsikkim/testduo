@@ -44,7 +44,7 @@ where availabledate_st>= #{startDate} and availabledate_end <= #{endDate})
 where inn_city=#{innCity} and inn_acceptable_no=#{acceptableNo}]]>
 	</select>
 
-<!-- 6/15일 추가내용 -->
+<!-- 6/15일 은식/동원 추가내용 -->
 	<select id="selectInnByCityAndDateAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
 	<![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end
 from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
