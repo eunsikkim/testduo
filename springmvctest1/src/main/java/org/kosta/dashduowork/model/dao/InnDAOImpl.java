@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.dashduowork.model.vo.AmenityVO;
 import org.kosta.dashduowork.model.vo.FilterVO;
+import org.kosta.dashduowork.model.vo.InnPicCompVO;
 import org.kosta.dashduowork.model.vo.InnVO;
 import org.kosta.dashduowork.model.vo.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;

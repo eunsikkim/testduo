@@ -18,12 +18,12 @@
 				success : function(innInfoList) {
 					var tableInfo="<table class='table'><thead><tr><th >숙소 번호</th><th>숙소명</th><th>지역(대)</th><th>지역(중)</th><th>상세 주소</th><th>유형</th><th>수용가능인원</th><th>가격</th></tr></thead>";
 					tableInfo+="<tbody>";
-					if (innInfoList.length != 0) {
-						$.each(innInfoList, function(index, info) {
+					if (innInfoList.innList.length != 0) {
+						$.each(innInfoList.innList, function(index, info) {
 							tableInfo+="<tr><td>"+info.innNo+"</td><td>"+info.innName+"</td><td>"+info.innCity+"</td><td>"+info.innArea+"</td><td>"+info.innAddress+"</td><td>"+info.innType+"</td><td>"+info.acceptableNo+"</td><td>"+info.innPrice+"</td></tr>";
 						}); //each
 					}//if
-					else if(innInfoList.length == 0){
+					else if(innInfoList.innList.length == 0){
 						tableInfo+="<tr><td colspan='8' align='center'>검색 및 필터조건에 해당하는 숙소가 존재하지 않습니다.</td></tr>"
 					}
 					tableInfo+="</tbody></table>";
@@ -83,6 +83,7 @@
 						<thead>
 							<tr>
 								<th >숙소 번호</th>
+								<th>숙소 사진</th>
 								<th>숙소명</th>
 								<th>지역(대)</th>
 								<th>지역(중)</th>
@@ -94,20 +95,22 @@
 						</thead>
 						<tbody>
 							<c:choose>
-								<c:when test="${requestScope.list.size()==0}" >
-										<tr><td colspan='8' align="center">검색결과가 존재하지 않습니다.</td></tr>
+								<c:when test="${requestScope.innListVO.innList.size()==0}" >
+										<tr><td colspan='9' align="center">검색결과가 존재하지 않습니다.</td></tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="list" items="${requestScope.list}">
+									<c:forEach var="innList" items="${requestScope.innListVO.innList}">
 										<tr>
-											<td>${list.innNo }</td>
-											<td>${list.innName }</td>
-											<td>${list.innCity }</td>
-											<td>${list.innArea }</td>
-											<td>${list.innAddress }</td>
-											<td>${list.innType }</td>
-											<td>${list.acceptableNo }</td>
-											<td>${list.innPrice }</td>
+											<td>${innList.innNo }</td>
+											<td><%-- <img src="${innList.innMainPic.filePath}"
+                class="img-circle img-responsive" width="200" height="200"> --%>${innList.innMainPic.filePath}</td>
+											<td>${innList.innName }</td>
+											<td>${innList.innCity }</td>
+											<td>${innList.innArea }</td>
+											<td>${innList.innAddress }</td>
+											<td>${innList.innType }</td>
+											<td>${innList.acceptableNo }</td>
+											<td>${innList.innPrice }</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>

@@ -18,14 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result property="memberId" column="member_id"/>
 </resultMap>
 
+
 	<sql id="selectInn">
 		select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_info,inn_availability, member_id from inn
 	</sql>
 	
-	<select id="selectInnByCityAndAcceptableNo" parameterType="svo" resultType="ivo" resultMap="innResult">
+	<!-- <select id="selectInnByCityAndAcceptableNo" parameterType="svo" resultType="ivo" resultMap="innResult">
 		<include refid="selectInn" />
 		where inn_city=#{innCity} and inn_acceptable_no=#{acceptableNo}
-	</select>
+	</select> -->
+	<select id="selectInnByCityAndAcceptableNo" parameterType="svo" resultType="ivo" resultMap="innResult">
+  <![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_info, inn_availability, member_id from
+  (select i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, i.inn_price, i.inn_info,i.inn_availability, i.member_id 
+  from inn i where inn_city like '%' ||  #{innCity} || '%') where inn_acceptable_no <= #{acceptableNo}]]>
+ </select>
 	
 	<select id="selectInnByCheckedAmenity" parameterType="avo" resultType="ivo" resultMap="innResult">
 		select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, 
@@ -45,7 +51,7 @@ where inn_city=#{innCity} and inn_acceptable_no=#{acceptableNo}]]>
 	</select>
 
 <!-- 6/15일 은식/동원 추가내용 -->
-	<select id="selectInnByCityAndDateAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
+	<!-- <select id="selectInnByCityAndDateAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
 	<![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end
 from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
 from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
@@ -53,9 +59,18 @@ i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledat
 from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.inn_no and ad.inn_no=a.inn_no)
 where availabledate_st>=#{firstSearchStartDate} and availabledate_end <=#{firstSearchEndDate} and inn_city=#{firstSearchCity} and inn_acceptable_no=#{firstSearchPeopleNo})
 where amenity_wifi=#{amenityWiFi} and amenity_bed=#{amenityBed} and amenity_tv=#{amenityTV} and amenity_kitchen=#{amenityKitchen} and amenity_bbq=#{amenityBBQ}]]>
-	</select>
+	</select> -->
+	<select id="selectInnByCityAndDateAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
+   <![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end
+from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
+from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledate_end, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq
+from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.inn_no and ad.inn_no=a.inn_no)
+where availabledate_st>=#{firstSearchStartDate} and availabledate_end <=#{firstSearchEndDate} and inn_city like '%' ||  #{firstSearchCity} || '%' and inn_acceptable_no <= #{firstSearchPeopleNo})
+where amenity_wifi=#{amenityWiFi} and amenity_bed=#{amenityBed} and amenity_tv=#{amenityTV} and amenity_kitchen=#{amenityKitchen} and amenity_bbq=#{amenityBBQ}]]>
+   </select>
 	
-	<select id="selectInnByCityAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
+	<!-- <select id="selectInnByCityAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
 	<![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end
 from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
 from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
@@ -63,30 +78,17 @@ i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledat
 from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.inn_no and ad.inn_no=a.inn_no)
 where inn_city=#{firstSearchCity} and inn_acceptable_no=#{firstSearchPeopleNo})
 where amenity_wifi=#{amenityWiFi} and amenity_bed=#{amenityBed} and amenity_tv=#{amenityTV} and amenity_kitchen=#{amenityKitchen} and amenity_bbq=#{amenityBBQ}]]>
-	</select>
-	
-	<!-- <select id="getAddressKind" resultType="string">
-		select distinct(address) from member
-	</select>
-	<select id="findByAddress" resultType="mvo">
-		<include refid="selectMember" />
-		where address=#{value}
-	</select>
-	<select id="findMemberById" resultType="mvo">
-		<include refid="selectMember" />
-		where id=#{value}
-	</select>
-	<insert id="registerMember" parameterType="mvo">
-		insert into member(id,password,name,address)
-		values(#{id},#{password},#{name},#{address})
-	</insert>
-	<select id="idcheck" resultType="int">
-		select count(*) from member where id=#{value}
-	</select>
-	<update id="updateMember" parameterType="mvo">
-		update member set password=#{password},name=#{name},address=#{address}
-		where id=#{id}
-	</update> -->
+	</select> -->
+	<select id="selectInnByCityAndAcceptableNoWithFilter" parameterType="fvo" resultType="ivo" resultMap="innResult">
+   <![CDATA[select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end
+from (select inn_no, inn_name, inn_city, inn_area, inn_address, inn_type, inn_acceptable_no, inn_price, inn_availability, member_id, availabledate_st, availabledate_end, amenity_wifi, amenity_bed, amenity_tv, amenity_kitchen, amenity_bbq
+from (select distinct i.inn_no, i.inn_name, i.inn_city, i.inn_area, i.inn_address, i.inn_type, i.inn_acceptable_no, 
+i.inn_price,i.inn_availability,i.member_id, ad.availabledate_st, ad.availabledate_end, a.amenity_wifi,a.amenity_bed,a.amenity_tv,a.amenity_kitchen,a.amenity_bbq
+from availabledate ad, inn i, amenity a where i.inn_no=ad.inn_no and i.inn_no=a.inn_no and ad.inn_no=a.inn_no)
+where inn_city like '%' ||  #{firstSearchCity} || '%'  and inn_acceptable_no <= #{firstSearchPeopleNo})
+where amenity_wifi=#{amenityWiFi} and amenity_bed=#{amenityBed} and amenity_tv=#{amenityTV} and amenity_kitchen=#{amenityKitchen} and amenity_bbq=#{amenityBBQ}]]>
+</select>
+
 </mapper>
  
  

@@ -104,6 +104,8 @@ insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, inn_no) values('Y','Y','Y','Y','N',23);
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, inn_no) values('Y','Y','Y','Y','N',24);
 insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, inn_no) values('Y','Y','Y','Y','N',25);
+insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, inn_no) values('Y','Y','Y','Y','N',26);
+insert into amenity(amenity_wifi,amenity_bed,amenity_tv,amenity_kitchen,amenity_bbq, inn_no) values('Y','Y','Y','Y','N',27);
 
 
 
